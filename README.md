@@ -23,6 +23,19 @@ You will need to install the `iBusBM` library which can be found in the Library 
 
 Then open up that file and flash your board with it. You can find step-by-step directions for flashing by selecting your board [here](https://www.arduino.cc/en/Guide).
 
+## Setting up the transmitter
+
+This project assumes that you have all 10 channels enabled on your Flysky i6 or i6X transmitter. It also assumes that you have the channels 5-10 assigned as follows:
+
+- Ch5: VAA
+- Ch6: VAB
+- Ch7: SWA
+- Ch8: SWB
+- Ch9: SWC
+- Ch10: SWD
+
+I found [this video](https://www.youtube.com/watch?v=ZwM_AoKfoj0) helpful in getting my tranmitter set up. The only difference is that I left my output mode in PWM. Switching to PPM doesn't seem necessary for getting channels 7-10 set up.
+
 ## Making it work
 
 For whatever reason I've found that your FlySky transmitter (controller) has to be turned off when you power up the receiver in order for the code to execute properly.
