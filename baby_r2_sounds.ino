@@ -1,6 +1,5 @@
 #include <IBusBM.h>
-
-IBusBM IBus;
+#include "AltSoftSerial.h"
 
 int currentVol = 30; // I belive 30 is max
 int ledPIN = 9;
@@ -10,8 +9,12 @@ int volumeChannel = 4; // VRA on FS-i6X
 int threePosChannel = 8; // SWC on FS-i6X
 int soundsOnChannel = 9; // SWD on FS-i6X
 
+IBusBM IBus;
+AltSoftSerial mp3Serial; // Will use pins 8 & 9
+
 void setup() {
   IBus.begin(Serial1); 
+  mp3Serial.begin(9600);
   Serial.begin(9600);
 }
 
