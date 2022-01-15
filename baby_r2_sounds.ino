@@ -3,7 +3,6 @@
 #include "DFRobotDFPlayerMini.h"
 
 int currentVol = 15; // Set initial volume value. From 0 to 30
-int ledPIN = 9;
 
 // Set channels. Channels are 0 indexed, so RC channel 1 is set to 0
 int volumeChannel = 4; // VRA on FS-i6X
