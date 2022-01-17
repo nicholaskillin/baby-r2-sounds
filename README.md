@@ -4,8 +4,10 @@ This repo is a work in progress. I have printed and assembled one of [Mr. Baddel
 
 Additional Hardware used:
 
-- Ardunio Mega2560
-- LED
+- [Ardunio Nano](https://store-usa.arduino.cc/products/arduino-nano?selectedStore=us)
+- [DF Mini Player](https://www.dfrobot.com/product-1121.html)
+- SD Card
+- 1K Resistor
 
 ## Setting up the Circuit
 
