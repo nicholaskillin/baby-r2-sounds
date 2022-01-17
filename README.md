@@ -30,7 +30,10 @@ Once everything is copied over you can put it into the DF Mini Player
 
 You should be able to place the `baby_r2_sounds.ino` file into a folder called `baby_r2_sounds` and then open that up in the [Arduino software](https://www.arduino.cc/en/software).
 
-You will need to install the `iBusBM` library which can be found in the Library Manager in the Arduino IDE.
+You will need to install the following libraries using the Arduino library manager:
+- iBusBM
+- AltSoftSerial
+- DFRobotDFPlayerMini
 
 Then open up that file and flash your board with it. You can find step-by-step directions for flashing by selecting your board [here](https://www.arduino.cc/en/Guide).
 
