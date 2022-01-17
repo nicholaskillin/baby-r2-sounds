@@ -13,7 +13,8 @@ I wanted to keep as much of Mr. Baddeley's design in place as possible, so I dec
 
 You can also send commands to the arduino via the FS-iA6B by connecting the arduino to the iBus output. You will need to connect the Arduino to the iBus of the FS-iA6B as shown.
 
-![BabyR2 Sound Test 2022-01-13 at 1 48 48 PM](https://user-images.githubusercontent.com/39142975/149513009-72999688-93f0-42d4-bf98-009dc90dc068.jpg)
+![Baby R2 Breadboard V1](https://user-images.githubusercontent.com/39142975/149836900-255352c2-a780-4506-a653-6cfbed98c6dc.png)
+
 
 ## Setting up the software
 
