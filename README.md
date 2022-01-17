@@ -11,7 +11,7 @@ Additional Hardware used:
 
 ## Setting up the Circuit
 
-I wanted to keep as much of Mr. Baddeley's design in place as possible, so I decided to power my arduino through the FS-iA6B.
+I wanted to keep as much of Mr. Baddeley's design in place as possible, so I decided to power my setup through the FS-iA6B.
 
 You can also send commands to the arduino via the FS-iA6B by connecting the arduino to the iBus output. You will need to connect the Arduino to the iBus of the FS-iA6B as shown.
 
@@ -54,15 +54,5 @@ I found [this video](https://www.youtube.com/watch?v=ZwM_AoKfoj0) helpful in get
 
 For whatever reason I've found that your FlySky transmitter (controller) has to be turned off when you power up the receiver in order for the code to execute properly.
 
-1. Plug your battery into your FS-1A6B. This should power up your RC receiver, your servos, and your Mega2650
+1. Plug your battery into your FS-1A6B. This should power up your RC receiver, your servos, your nano, and your DF mini.
 2. Power up your transmitter. (If you haven't paired the reciever to the transmitter you will need to do that. The steps for that are outside the scope of this repo.)
-3. Now SWD should be able to turn on/off the LED light you have connected.
-
-## I thought this was about making sounds, not turning a light on/off
-
-Well yes, it is. But before I could do that I had to figure out how to send commands to an arduino via my RC receiver.
-
-Now that I have that part figured out I plan to update this in the future. Future plans include:
-
-- Actually making sounds instead of turning on/off an LED
-- Swapping out the Mega2560 for a much smaller board
