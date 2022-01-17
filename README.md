@@ -17,6 +17,14 @@ You can also send commands to the arduino via the FS-iA6B by connecting the ardu
 
 ![Baby R2 Breadboard V1](https://user-images.githubusercontent.com/39142975/149836900-255352c2-a780-4506-a653-6cfbed98c6dc.png)
 
+## Setting up the DF Mini Player
+I formatted my micro SD card using FAT32.
+
+All of the sound files are in the `MP3 Files` directory. You will need to copy these to your SD card. The order that they are copied onto the SD card matters. I started with the first file and copied them over one at a time.
+
+If you are on a mac you may need to follow the directions [here](https://wiki.dfrobot.com/DFPlayer_Mini_SKU_DFR0299#target_6) to clean up the dot files after copying everything over.
+
+Once everything is copied over you can put it into the DF Mini Player
 
 ## Setting up the software
 
