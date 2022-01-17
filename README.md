@@ -56,3 +56,6 @@ For whatever reason I've found that your FlySky transmitter (controller) has to 
 
 1. Plug your battery into your FS-1A6B. This should power up your RC receiver, your servos, your nano, and your DF mini.
 2. Power up your transmitter. (If you haven't paired the reciever to the transmitter you will need to do that. The steps for that are outside the scope of this repo.)
+
+## Controls
+
