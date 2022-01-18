@@ -116,7 +116,7 @@ void loop() {
   if (playRandomSong && RandomTimePassed(currentMillis, previousMillis)) {
     bool mp3Playing = mp3Player.readState();
     if (!mp3Playing) {
-      randomSong = random(58, 80);
+      randomSong = random(58, 77);
       mp3Player.play(randomSong);
       previousMillis = currentMillis;
     }
