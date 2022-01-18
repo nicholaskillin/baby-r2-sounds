@@ -58,4 +58,5 @@ For whatever reason I've found that your FlySky transmitter (controller) has to 
 2. Power up your transmitter. (If you haven't paired the reciever to the transmitter you will need to do that. The steps for that are outside the scope of this repo.)
 
 ## Controls
+![Baby R2 Sounds Controls](https://user-images.githubusercontent.com/39142975/149840752-1e6b11ea-07b3-4312-a17c-db5ac8ca2787.png)
 
