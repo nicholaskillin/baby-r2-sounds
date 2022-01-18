@@ -13,33 +13,48 @@ int randomMusicChannel = 9; // SWD on FS-i6X
 long randDelay;
 long randomSound;
 long randomScream;
-long randomSong; 
+long randomSong;
+unsigned long previousMillis = 0; // will store last time a file stopped playing
+long soundInterval = 0;
+
+bool debugMode = false;
 
 IBusBM IBus;
 AltSoftSerial mp3Serial; // Will use pins 8 & 9
 DFRobotDFPlayerMini mp3Player;
 
 void setup() {
-  IBus.begin(Serial); 
   mp3Serial.begin(9600);
-  // Serial.begin(19200);
 
-  // Serial.println(F("DFRobot DFPlayer Mini Demo"));
-  // Serial.println(F("Initializing DFPlayer ... (May take 3~5 seconds)"));
+  if (debugMode) {
+    Serial.begin(19200);
 
-  if (!mp3Player.begin(mp3Serial)) {
-    // Serial.println(F("Unable to begin:"));
-    // Serial.println(F("1.Please recheck the connection!"));
-    // Serial.println(F("2.Please insert the SD card!"));
-    while(true);
+    Serial.println(F("DFRobot DFPlayer Mini Demo"));
+    Serial.println(F("Initializing DFPlayer ... (May take 3~5 seconds)"));
+
+    if (!mp3Player.begin(mp3Serial)) {
+      Serial.println(F("Unable to begin:"));
+      Serial.println(F("1.Please recheck the connection!"));
+      Serial.println(F("2.Please insert the SD card!"));
+      while(true);
+    }
+    Serial.println(F("DFPlayer Mini online."));
+  } else {
+    if (!mp3Player.begin(mp3Serial)) {
+      while(true);
+    }
+    IBus.begin(Serial);
   }
-  // Serial.println(F("DFPlayer Mini online."));
 
   mp3Player.volume(currentVol);
   mp3Player.play(1);  // Play the first mp3
+  randomSeed(analogRead(0));
+  delay(3000); // Let's boot sound play and iBus initialize
 }
 
-void loop() {  
+void loop() {
+  unsigned long currentMillis = millis();
+
   // Get volume and set if needed
   int newVol = GetVolume();
 
@@ -48,27 +63,36 @@ void loop() {
     mp3Player.volume(currentVol);
   }
 
-  // If SWA is on, play random sound
-  bool playRandomSounds = ReadChannel(randomSoundsChannel);
-  if (playRandomSounds) {
-    bool mp3Playing = mp3Player.readState();
-    if (!mp3Playing) {
-      randDelay = random(5000, 15000);
-      randomSound = random(1, 52);
-      delay(randDelay);
-      mp3Player.play(randomSound);
+  // Check to see if the MP3 is still playing
+  // If so, skip all of this
+  bool mp3Playing = mp3Player.readState();
+  if (!mp3Playing) {
+
+    // If SWA is on, play random sound
+    bool playRandomSounds;
+    if (debugMode) {
+      playRandomSounds = true;
+    } else {
+      playRandomSounds = ReadChannel(randomSoundsChannel);
     }
+
+    if (playRandomSounds && RandomTimePassed(currentMillis, previousMillis)) {
+      // Play random sound
+      randomSound = random(1, 52);
+      mp3Player.play(randomSound);
+      previousMillis = currentMillis;
+    }
+
   }
 
   // If SWB is on, play random scream
   bool playRandomScream = ReadChannel(randomScreamsChannel);
-  if (playRandomScream) {
+  if (playRandomScream && RandomTimePassed(currentMillis, previousMillis)) {
     bool mp3Playing = mp3Player.readState();
     if (!mp3Playing) {
-      randDelay = random(5000, 15000);
       randomScream = random(52, 55);
-      delay(randDelay);
       mp3Player.play(randomScream);
+      previousMillis = currentMillis;
     }
   }
 
@@ -83,13 +107,12 @@ void loop() {
 
   // If SWD is on, play random song
   bool playRandomSong = ReadChannel(randomMusicChannel);
-  if (playRandomSong) {
+  if (playRandomSong && RandomTimePassed(currentMillis, previousMillis)) {
     bool mp3Playing = mp3Player.readState();
     if (!mp3Playing) {
-      randDelay = random(5000, 15000);
       randomSong = random(58, 80);
-      delay(randDelay);
       mp3Player.play(randomSong);
+      previousMillis = currentMillis;
     }
   }
 
@@ -102,8 +125,6 @@ void loop() {
 bool ReadChannel(int c) {
   int ChannelValue = IBus.readChannel(c);
 
-  Serial.println(ChannelValue);
-
   if (c == leiaChannel) {
     // Figure out 3 position switch. Off is 1000, middle is 1500, on is 2000
     if (ChannelValue < 1500) {
@@ -112,6 +133,16 @@ bool ReadChannel(int c) {
     return true;
   }
   return ChannelValue > 1990;
+}
+
+bool RandomTimePassed(long currentMillis, long previousMillis) {
+
+  bool well = currentMillis - previousMillis >= (soundInterval * 1000);
+  if (well) {
+    Serial.println(soundInterval);
+    soundInterval = random(5, 12);
+  }
+  return currentMillis - previousMillis >= (soundInterval * 1000);
 }
 
 // This will convert the controller range to the volume range. In this instance the volume is 0-30. 
