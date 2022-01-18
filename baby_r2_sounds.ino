@@ -63,6 +63,12 @@ void loop() {
     mp3Player.volume(currentVol);
   }
 
+  // If all switches are off set soundInterval back to 0
+  // This makes the next switch immediatly play a sound when flipped to the on position
+  if (AllSwitchesOff()) {
+    soundInterval = 0;    
+  }
+
   // Check to see if the MP3 is still playing
   // If so, skip all of this
   bool mp3Playing = mp3Player.readState();
@@ -120,6 +126,15 @@ void loop() {
   // if (mp3Player.available()) {
   //   printDetail(mp3Player.readType(), mp3Player.read()); //Print the detail message from DFPlayer to handle different errors and states.
   // }
+}
+
+bool AllSwitchesOff() {
+  bool swa = ReadChannel(randomSoundsChannel);
+  bool swb = ReadChannel(randomScreamsChannel);
+  bool swc = ReadChannel(leiaChannel);
+  bool swd = ReadChannel(randomMusicChannel);
+
+  return !swa || !swb || !swc || !swd;
 }
 
 bool ReadChannel(int c) {
