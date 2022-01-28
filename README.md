@@ -1,6 +1,6 @@
 # baby-r2-sounds
 
-This repo is a work in progress. I have printed and assembled one of [Mr. Baddeley's](https://www.patreon.com/mrbaddeley) Baby R2 droids. He has all of the instructions for getting the droid moving, but I wanted to add sounds as well. This guide will cover the modifications to the droid. For more info on how to build the droid itself check out his patreon.
+I have printed and assembled one of [Mr. Baddeley's](https://www.patreon.com/mrbaddeley) Baby R2 droids. He has all of the instructions for getting the droid moving, but I wanted to add sounds as well. This guide will cover the modifications to the droid. For more info on how to build the droid itself check out his patreon.
 
 Additional Hardware used:
 
