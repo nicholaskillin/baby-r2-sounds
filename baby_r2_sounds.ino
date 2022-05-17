@@ -20,11 +20,11 @@ long soundInterval = 0;
 bool debugMode = false;
 
 IBusBM IBus;
-AltSoftSerial mp3Serial; // Will use pins 8 & 9
+AltSoftSerial softwareSerial; // Will use pins 8 & 9
 DFRobotDFPlayerMini mp3Player;
 
 void setup() {
-  mp3Serial.begin(9600);
+  softwareSerial.begin(9600);
 
   if (debugMode) {
     Serial.begin(19200);
@@ -32,7 +32,7 @@ void setup() {
     Serial.println(F("DFRobot DFPlayer Mini Demo"));
     Serial.println(F("Initializing DFPlayer ... (May take 3~5 seconds)"));
 
-    if (!mp3Player.begin(mp3Serial)) {
+    if (!mp3Player.begin(softwareSerial)) {
       Serial.println(F("Unable to begin:"));
       Serial.println(F("1.Please recheck the connection!"));
       Serial.println(F("2.Please insert the SD card!"));
@@ -40,7 +40,7 @@ void setup() {
     }
     Serial.println(F("DFPlayer Mini online."));
   } else {
-    if (!mp3Player.begin(mp3Serial)) {
+    if (!mp3Player.begin(softwareSerial)) {
       while(true);
     }
     IBus.begin(Serial);
