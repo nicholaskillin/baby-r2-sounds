@@ -129,10 +129,7 @@ void loop() {
         mp3Player.play(randomSong);
         previousMillis = currentMillis;
       }
-    }
-
-    // runDebugger();
-    
+    }    
 
     // Get mp3 player status
     if (mp3Player.available()) {
