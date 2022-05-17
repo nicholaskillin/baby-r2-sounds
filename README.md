@@ -52,16 +52,19 @@ This project assumes that you have all 10 channels enabled on your Flysky i6 or 
 
 I found [this video](https://www.youtube.com/watch?v=ZwM_AoKfoj0) helpful in getting my tranmitter set up. The only difference is that I left my output mode in PWM. Switching to PPM doesn't seem necessary for getting channels 7-10 set up.
 
-> Troubleshooting: If things aren't working one thing to check is if your receiver is sending the correct values to the nano. To do this you can edit the code to turn debugTransmitter on.
-> > bool debugTransmitter = true; // Set serial monitor to 115200
-> After you do make this change:
-> 1. Upload those changes to your nano
-> 2. Open the serial monitor in the Arduino software
-> 3. Set the serial monitor rate to 115200
-> 4. Turn your RC transmitter on and change the volume and/or toggle the toggle switches
->
-> If things are working you should see the updated values for each channel in the serial monitor.
+<details>
+  <summary>Troubleshooting</summary>
 
+  > If things aren't working one thing to check is if your receiver is sending the correct values to the nano. To do this you can edit the code to turn debugTransmitter on.
+  > > bool debugTransmitter = true; // Set serial monitor to 115200
+  > After you do make this change:
+  > 1. Upload those changes to your nano
+  > 2. Open the serial monitor in the Arduino software
+  > 3. Set the serial monitor rate to 115200
+  > 4. Turn your RC transmitter on and change the volume and/or toggle the toggle switches
+  >
+  > If things are working you should see the updated values for each channel in the serial monitor.
+</details>
 
 ## Making it work
 
