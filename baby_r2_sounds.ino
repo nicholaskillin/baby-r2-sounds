@@ -132,9 +132,9 @@ void loop() {
     }    
 
     // Get mp3 player status
-    if (mp3Player.available()) {
-      printDetail(mp3Player.readType(), mp3Player.read()); //Print the detail message from DFPlayer to handle different errors and states.
-    }
+    // if (mp3Player.available()) {
+    //   printDetail(mp3Player.readType(), mp3Player.read()); //Print the detail message from DFPlayer to handle different errors and states.
+    // }
   }
 
   if (debugTransmitter) {
