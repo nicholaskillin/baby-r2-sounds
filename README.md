@@ -53,7 +53,7 @@ This project assumes that you have all 10 channels enabled on your Flysky i6 or 
 I found [this video](https://www.youtube.com/watch?v=ZwM_AoKfoj0) helpful in getting my tranmitter set up. The only difference is that I left my output mode in PWM. Switching to PPM doesn't seem necessary for getting channels 7-10 set up.
 
 <details>
-  <summary>Troubleshooting</summary>
+  <summary>Troubleshooting the transmitter</summary>
 
   > If things aren't working one thing to check is if your receiver is sending the correct values to the nano. To do this you can edit the code to turn debugTransmitter on.
   > > bool debugTransmitter = true; // Set serial monitor to 115200
