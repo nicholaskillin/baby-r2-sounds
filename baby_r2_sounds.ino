@@ -17,7 +17,13 @@ long randomSong;
 unsigned long previousMillis = 0; // will store last time a file stopped playing
 long soundInterval = 0;
 
-bool debugMode = false;
+bool debugDfMiniPlayer = false;
+bool debugTransmitter = false; // Set serial monitor to 115200
+int lastVolume = 0;
+int lastRandomSoundValue = 0;
+int lastRandomScreamsValue = 0;
+int lastLeiaValue = 0;
+int lastRandomMusicValue = 0;
 
 IBusBM IBus;
 AltSoftSerial softwareSerial; // Will use pins 8 & 9
@@ -26,7 +32,7 @@ DFRobotDFPlayerMini mp3Player;
 void setup() {
   softwareSerial.begin(9600);
 
-  if (debugMode) {
+  if (debugDfMiniPlayer) {
     Serial.begin(19200);
 
     Serial.println(F("DFRobot DFPlayer Mini Demo"));
@@ -39,93 +45,104 @@ void setup() {
       while(true);
     }
     Serial.println(F("DFPlayer Mini online."));
+  } else if (debugTransmitter) {
+    IBus.begin(Serial);
+    Serial.println("Started iBus");
   } else {
     if (!mp3Player.begin(softwareSerial)) {
       while(true);
     }
     IBus.begin(Serial);
+    mp3Player.volume(currentVol);
+    mp3Player.play(1);  // Play the first mp3
+    randomSeed(analogRead(0));
+    delay(3000); // Let's boot sound play and iBus initialize
   }
-
-  mp3Player.volume(currentVol);
-  mp3Player.play(1);  // Play the first mp3
-  randomSeed(analogRead(0));
-  delay(3000); // Let's boot sound play and iBus initialize
 }
 
 void loop() {
-  unsigned long currentMillis = millis();
+  if (!debugTransmitter) {
+    unsigned long currentMillis = millis();
 
-  // Get volume and set if needed
-  int newVol = GetVolume();
+    // Get volume and set if needed
+    int newVol = GetVolume();
 
-  if (currentVol != newVol) {
-    currentVol = newVol;
-    mp3Player.volume(currentVol);
-  }
-
-  // If all switches are off set soundInterval back to 0
-  // This makes the next switch immediatly play a sound when flipped to the on position
-  if (AllSwitchesOff()) {
-    soundInterval = 0;    
-  }
-
-  // Check to see if the MP3 is still playing
-  // If so, skip all of this
-  bool mp3Playing = mp3Player.readState();
-  if (!mp3Playing) {
-
-    // If SWA is on, play random sound
-    bool playRandomSounds;
-    if (debugMode) {
-      playRandomSounds = true;
-    } else {
-      playRandomSounds = ReadChannel(randomSoundsChannel);
+    if (currentVol != newVol) {
+      currentVol = newVol;
+      mp3Player.volume(currentVol);
     }
 
-    if (playRandomSounds && RandomTimePassed(currentMillis, previousMillis)) {
-      // Play random sound
-      randomSound = random(1, 52);
-      mp3Player.play(randomSound);
-      previousMillis = currentMillis;
+    // If all switches are off set soundInterval back to 0
+    // This makes the next switch immediatly play a sound when flipped to the on position
+    if (AllSwitchesOff()) {
+      soundInterval = 0;    
     }
 
-  }
-
-  // If SWB is on, play random scream
-  bool playRandomScream = ReadChannel(randomScreamsChannel);
-  if (playRandomScream && RandomTimePassed(currentMillis, previousMillis)) {
+    // Check to see if the MP3 is still playing
+    // If so, skip all of this
     bool mp3Playing = mp3Player.readState();
     if (!mp3Playing) {
-      randomScream = random(52, 55);
-      mp3Player.play(randomScream);
-      previousMillis = currentMillis;
+
+      // If SWA is on, play random sound
+      bool playRandomSounds;
+      if (debugDfMiniPlayer) {
+        playRandomSounds = true;
+      } else {
+        playRandomSounds = ReadChannel(randomSoundsChannel);
+      }
+
+      if (playRandomSounds && RandomTimePassed(currentMillis, previousMillis)) {
+        // Play random sound
+        randomSound = random(1, 52);
+        mp3Player.play(randomSound);
+        previousMillis = currentMillis;
+      }
+
+    }
+
+    // If SWB is on, play random scream
+    bool playRandomScream = ReadChannel(randomScreamsChannel);
+    if (playRandomScream && RandomTimePassed(currentMillis, previousMillis)) {
+      bool mp3Playing = mp3Player.readState();
+      if (!mp3Playing) {
+        randomScream = random(52, 55);
+        mp3Player.play(randomScream);
+        previousMillis = currentMillis;
+      }
+    }
+
+    // If SWC is on, play random Leia's message
+    bool playLeiaMessage = ReadChannel(leiaChannel);
+    if (playLeiaMessage) {
+      bool mp3Playing = mp3Player.readState();
+      if (!mp3Playing) {
+        mp3Player.play(55);
+      }
+    }
+
+    // If SWD is on, play random song
+    bool playRandomSong = ReadChannel(randomMusicChannel);
+    if (playRandomSong && RandomTimePassed(currentMillis, previousMillis)) {
+      bool mp3Playing = mp3Player.readState();
+      if (!mp3Playing) {
+        randomSong = random(58, 77);
+        mp3Player.play(randomSong);
+        previousMillis = currentMillis;
+      }
+    }
+
+    // runDebugger();
+    
+
+    // Get mp3 player status
+    if (mp3Player.available()) {
+      printDetail(mp3Player.readType(), mp3Player.read()); //Print the detail message from DFPlayer to handle different errors and states.
     }
   }
 
-  // If SWC is on, play random Leia's message
-  bool playLeiaMessage = ReadChannel(leiaChannel);
-  if (playLeiaMessage) {
-    bool mp3Playing = mp3Player.readState();
-    if (!mp3Playing) {
-      mp3Player.play(55);
-    }
+  if (debugTransmitter) {
+    runRcDebugger();
   }
-
-  // If SWD is on, play random song
-  bool playRandomSong = ReadChannel(randomMusicChannel);
-  if (playRandomSong && RandomTimePassed(currentMillis, previousMillis)) {
-    bool mp3Playing = mp3Player.readState();
-    if (!mp3Playing) {
-      randomSong = random(58, 77);
-      mp3Player.play(randomSong);
-      previousMillis = currentMillis;
-    }
-  }
-
-  // Get mp3 player status
-  // if (mp3Player.available()) {
-  //   printDetail(mp3Player.readType(), mp3Player.read()); //Print the detail message from DFPlayer to handle different errors and states.
-  // }
 }
 
 bool AllSwitchesOff() {
@@ -154,7 +171,7 @@ bool RandomTimePassed(long currentMillis, long previousMillis) {
 
   bool well = currentMillis - previousMillis >= (soundInterval * 1000);
   if (well) {
-    Serial.println(soundInterval);
+    // Serial.println(soundInterval);
     soundInterval = random(5, 12);
   }
   return currentMillis - previousMillis >= (soundInterval * 1000);
@@ -169,6 +186,49 @@ int GetVolume() {
   int newValue = ((value - 1000) * newRange / oldRange) + min;
  
   return newValue;
+}
+
+void runRcDebugger() {
+  // Volume
+  int volumeValue = IBus.readChannel(volumeChannel);
+
+  if (lastVolume != volumeValue) {
+      Serial.print("Volume Channel Value: ");
+      Serial.println(volumeValue);
+      lastVolume = volumeValue;
+  }
+
+  // Random Sounds
+  int randomSoundsValue = IBus.readChannel(randomSoundsChannel);
+  if (lastRandomSoundValue != randomSoundsValue) {
+      Serial.print("Random Sound Channel Value: ");
+      Serial.println(randomSoundsValue);
+      lastRandomSoundValue = randomSoundsValue;
+  }
+
+  // Random Screams
+  int randomScreamsValue = IBus.readChannel(randomScreamsChannel);
+  if (lastRandomScreamsValue != randomScreamsValue) {
+      Serial.print("Random Scream Channel Value: ");
+      Serial.println(randomScreamsValue);
+      lastRandomScreamsValue = randomScreamsValue;
+  }
+
+  // Leia
+  int leiaValue = IBus.readChannel(leiaChannel);
+  if (lastLeiaValue != leiaValue) {
+      Serial.print("Leia Channel Value: ");
+      Serial.println(leiaValue);
+      lastLeiaValue = leiaValue;
+  }
+
+  // Random Music
+  int randomMusicChannelValue = IBus.readChannel(randomMusicChannel);
+  if (lastRandomMusicValue != randomMusicChannelValue) {
+      Serial.print("Random Music Channel Value: ");
+      Serial.println(randomMusicChannelValue);
+      lastRandomMusicValue = randomMusicChannelValue;
+  }
 }
 
 void printDetail(uint8_t type, int value){
