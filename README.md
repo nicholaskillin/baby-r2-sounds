@@ -37,6 +37,8 @@ You will need to install the following libraries using the Arduino library manag
 
 Then open up that file and flash your board with it. You can find step-by-step directions for flashing by selecting your board [here](https://www.arduino.cc/en/Guide).
 
+> Tip: Your computer may not be able to communicate with your nano if you have your RC reciever connected to pin RX0 of the nano. If you are having trouble flashing remove that cable and try again.
+
 ## Setting up the transmitter
 
 This project assumes that you have all 10 channels enabled on your Flysky i6 or i6X transmitter. It also assumes that you have the channels 5-10 assigned as follows:
