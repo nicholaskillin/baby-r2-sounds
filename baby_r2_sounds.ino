@@ -65,7 +65,10 @@ void loop() {
     unsigned long currentMillis = millis();
 
     // Get volume and set if needed
-    int newVol = GetVolume();
+    int newVol = currentVol;
+    if (!debugDfMiniPlayer) {
+      newVol = GetVolume();
+    }
 
     if (currentVol != newVol) {
       currentVol = newVol;
