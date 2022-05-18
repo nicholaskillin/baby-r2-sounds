@@ -33,7 +33,7 @@ void setup() {
   softwareSerial.begin(9600);
 
   if (debugDfMiniPlayer) {
-    Serial.begin(19200);
+    IBus.begin(Serial);
 
     Serial.println(F("DFRobot DFPlayer Mini Demo"));
     Serial.println(F("Initializing DFPlayer ... (May take 3~5 seconds)"));
@@ -54,7 +54,7 @@ void setup() {
     }
     IBus.begin(Serial);
     mp3Player.volume(currentVol);
-    mp3Player.play(1);  // Play the first mp3
+    mp3Player.play(1);
     randomSeed(analogRead(0));
     delay(3000); // Let's boot sound play and iBus initialize
   }
