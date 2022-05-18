@@ -100,32 +100,23 @@ void loop() {
       // If SWB is on, play random scream
       bool playRandomScream = ReadChannel(randomScreamsChannel);
       if (playRandomScream && RandomTimePassed(currentMillis, previousMillis)) {
-        bool mp3Playing = mp3Player.readState();
-        if (!mp3Playing) {
-          randomScream = random(52, 55);
-          mp3Player.play(randomScream);
-          previousMillis = currentMillis;
-        }
+        randomScream = random(52, 55);
+        mp3Player.play(randomScream);
+        previousMillis = currentMillis;
       }
 
       // If SWC is on, play random Leia's message
       bool playLeiaMessage = ReadChannel(leiaChannel);
       if (playLeiaMessage) {
-        bool mp3Playing = mp3Player.readState();
-        if (!mp3Playing) {
-          mp3Player.play(55);
-        }
+        mp3Player.play(55);
       }
 
       // If SWD is on, play random song
       bool playRandomSong = ReadChannel(randomMusicChannel);
       if (playRandomSong && RandomTimePassed(currentMillis, previousMillis)) {
-        bool mp3Playing = mp3Player.readState();
-        if (!mp3Playing) {
-          randomSong = random(58, 77);
-          mp3Player.play(randomSong);
-          previousMillis = currentMillis;
-        }
+        randomSong = random(58, 77);
+        mp3Player.play(randomSong);
+        previousMillis = currentMillis;
       } 
     }   
 
