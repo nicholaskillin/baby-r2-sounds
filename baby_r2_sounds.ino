@@ -83,8 +83,13 @@ void loop() {
 
     // Check to see if the MP3 is still playing
     // If so, skip all of this
-    bool mp3Playing = mp3Player.readState();
-    if (!mp3Playing) {
+    int mp3Playing = mp3Player.readState();
+    if (debugDfMiniPlayer) {
+      String mp3State = (mp3Playing == 1) ? "Playing" : "Not Playing";
+      Serial.println("MP3 Player State: " + mp3State);
+    }
+    
+    if (!mp3Playing == 1) {
       // If SWA is on, play random sound
       bool playRandomSounds;
       if (debugDfMiniPlayer) {
