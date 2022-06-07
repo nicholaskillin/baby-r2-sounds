@@ -5,7 +5,7 @@ I have printed and assembled one of [Mr. Baddeley's](https://www.patreon.com/mrb
 Additional Hardware used:
 
 - [Ardunio Nano](https://store-usa.arduino.cc/products/arduino-nano?selectedStore=us)
-- [DF Mini Player](https://www.dfrobot.com/product-1121.html)
+- [DF Mini Player](https://www.amazon.com/gp/product/B01D1D0E7Q/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1) | [Compatible Models](#compatible-hardware)
 - SD Card
 - 1K Resistor
 
@@ -18,6 +18,7 @@ You can also send commands to the arduino via the FS-iA6B by connecting the ardu
 ![Baby R2 Breadboard V1](https://user-images.githubusercontent.com/39142975/149836900-255352c2-a780-4506-a653-6cfbed98c6dc.png)
 
 ## Setting up the DF Mini Player
+
 I formatted my micro SD card using FAT32.
 
 All of the sound files are in the `MP3 Files` directory. You will need to copy these to your SD card. The order that they are copied onto the SD card matters. I started with the first file and copied them over one at a time.
@@ -31,6 +32,7 @@ Once everything is copied over you can put it into the DF Mini Player
 You should be able to place the `baby_r2_sounds.ino` file into a folder called `baby_r2_sounds` and then open that up in the [Arduino software](https://www.arduino.cc/en/software).
 
 You will need to install the following libraries using the Arduino library manager:
+
 - iBusBM
 - AltSoftSerial
 - DFRobotDFPlayerMini
@@ -55,15 +57,18 @@ I found [this video](https://www.youtube.com/watch?v=ZwM_AoKfoj0) helpful in get
 <details>
   <summary>Troubleshooting the transmitter</summary>
 
-  > If things aren't working one thing to check is if your receiver is sending the correct values to the nano. To do this you can edit the code to turn debugTransmitter on.
-  > > bool debugTransmitter = true; // Set serial monitor to 115200
-  > After you do make this change:
-  > 1. Upload those changes to your nano
-  > 2. Open the serial monitor in the Arduino software
-  > 3. Set the serial monitor rate to 115200
-  > 4. Turn your RC transmitter on and change the volume and/or toggle the toggle switches
-  >
-  > If things are working you should see the updated values for each channel in the serial monitor.
+> If things aren't working one thing to check is if your receiver is sending the correct values to the nano. To do this you can edit the code to turn debugTransmitter on.
+>
+> > bool debugTransmitter = true; // Set serial monitor to 115200
+> > After you do make this change:
+>
+> 1. Upload those changes to your nano
+> 2. Open the serial monitor in the Arduino software
+> 3. Set the serial monitor rate to 115200
+> 4. Turn your RC transmitter on and change the volume and/or toggle the toggle switches
+>
+> If things are working you should see the updated values for each channel in the serial monitor.
+
 </details>
 
 ## Making it work
@@ -74,5 +79,19 @@ For whatever reason I've found that your FlySky transmitter (controller) has to 
 2. Power up your transmitter. (If you haven't paired the reciever to the transmitter you will need to do that. The steps for that are outside the scope of this repo.)
 
 ## Controls
+
 ![Baby R2 Sounds Controls](https://user-images.githubusercontent.com/39142975/149840752-1e6b11ea-07b3-4312-a17c-db5ac8ca2787.png)
 
+## Compatible Hardware
+
+I've had some people reach out with issues that were caused due to the devices they purchased.
+I will try to keep this project as flexible as possible, but for now know that some DFPlayers work
+and others don't. I will do my best to keep the list below updated as I hear back from others.
+
+Verified Compatible DFPlayerMinis:
+
+- [HiLetgo] (https://www.amazon.com/gp/product/B01D1D0E7Q/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1)
+
+Verified Incompatible DFPlayerMinis:
+
+- [DFRobot] (https://www.dfrobot.com/product-1121.html?fbclid=IwAR33kexA3I6MpVHscI2PRaD_InpwsOrJ6F9iEBH7Y8vIuZ0lATHGkUS48Yo)
