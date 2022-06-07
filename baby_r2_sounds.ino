@@ -10,23 +10,27 @@ int randomSoundsChannel = 6; // SWA on FS-i6X
 int randomScreamsChannel = 7; // SWB on FS-i6X
 int leiaChannel = 8; // SWC on FS-i6X
 int randomMusicChannel = 9; // SWD on FS-i6X
+
+// Other variables
 long randDelay;
 long randomSound;
 long randomScream;
 long randomSong;
 unsigned long previousMillis = 0; // will store last time a file stopped playing
 long soundInterval = 0;
-
-bool debugDfMiniPlayer = false;
-bool debugTransmitter = false; // Set serial monitor to 115200
 int lastVolume = 0;
 int lastRandomSoundValue = 0;
 int lastRandomScreamsValue = 0;
 int lastLeiaValue = 0;
 int lastRandomMusicValue = 0;
 
+// Debug Variables (Set to true to turn on debug mode)
+// Set serial monitor to 115200
+bool debugDfMiniPlayer = true;
+bool debugTransmitter = false;
+
 IBusBM IBus;
-AltSoftSerial softwareSerial; // Will use pins 8 & 9
+AltSoftSerial softwareSerial; // Pins (TX: 9, RX: 8)
 DFRobotDFPlayerMini mp3Player;
 
 void setup() {
@@ -58,15 +62,18 @@ void setup() {
 }
 
 void loop() {
-  if (!debugTransmitter) {
+  if (debugTransmitter) {
+    runRcDebugger();
+  } else {
     unsigned long currentMillis = millis();
 
-    // Get volume and set if needed
+    // Get volume if not in DFMiniPlayer debug mode 
     int newVol = currentVol;
     if (!debugDfMiniPlayer) {
       newVol = GetVolume();
     }
 
+    // Set new volumn if necessary
     if (currentVol != newVol) {
       currentVol = newVol;
       mp3Player.volume(currentVol);
@@ -79,14 +86,13 @@ void loop() {
     }
 
     // Check to see if the MP3 is still playing
-    // If so, skip all of this
-    int mp3Playing = mp3Player.readState();
+    bool mp3Playing = mp3Player.readState() == 1;
     if (debugDfMiniPlayer) {
-      String mp3State = (mp3Playing == 1) ? "Playing" : "Not Playing";
-      Serial.println("MP3 Player State: " + mp3State);
+      String mp3StateString = mp3Playing ? "Playing" : "Not Playing";
+      Serial.println("MP3 Player State: " + mp3StateString);
     }
     
-    if (!mp3Playing == 1) {
+    if (!mp3Playing) {
       // If SWA is on, play random sound
       bool playRandomSounds;
       if (debugDfMiniPlayer) {
@@ -96,7 +102,6 @@ void loop() {
       }
 
       if (playRandomSounds && RandomTimePassed(currentMillis, previousMillis)) {
-        // Play random sound
         randomSound = random(1, 52);
         mp3Player.play(randomSound);
         previousMillis = currentMillis;
@@ -126,13 +131,9 @@ void loop() {
     }   
 
     // Get mp3 player status
-    // if (mp3Player.available()) {
-    //   printDetail(mp3Player.readType(), mp3Player.read()); //Print the detail message from DFPlayer to handle different errors and states.
-    // }
-  }
-
-  if (debugTransmitter) {
-    runRcDebugger();
+    if (mp3Player.available() && debugDfMiniPlayer) {
+      printDetail(mp3Player.readType(), mp3Player.read()); //Print the detail message from DFPlayer to handle different errors and states.
+    }
   }
 }
 
