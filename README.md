@@ -15,7 +15,7 @@ I wanted to keep as much of Mr. Baddeley's design in place as possible, so I dec
 
 You can also send commands to the arduino via the FS-iA6B by connecting the arduino to the iBus output. You will need to connect the Arduino to the iBus of the FS-iA6B as shown.
 
-![Baby R2 Breadboard V1](https://user-images.githubusercontent.com/39142975/149836900-255352c2-a780-4506-a653-6cfbed98c6dc.png)
+![Baby R2 Breadboard V2](https://user-images.githubusercontent.com/39142975/172476735-745b308c-cbf0-40e5-90da-56930a86132c.png)
 
 ## Setting up the DF Mini Player
 
