@@ -31,10 +31,9 @@ DFRobotDFPlayerMini mp3Player;
 
 void setup() {
   softwareSerial.begin(9600);
+  IBus.begin(Serial);
 
   if (debugDfMiniPlayer) {
-    IBus.begin(Serial);
-
     Serial.println(F("DFRobot DFPlayer Mini Demo"));
     Serial.println(F("Initializing DFPlayer ... (May take 3~5 seconds)"));
 
@@ -46,13 +45,11 @@ void setup() {
     }
     Serial.println(F("DFPlayer Mini online."));
   } else if (debugTransmitter) {
-    IBus.begin(Serial);
     Serial.println("Started iBus");
   } else {
     if (!mp3Player.begin(softwareSerial)) {
       while(true);
     }
-    IBus.begin(Serial);
     mp3Player.volume(currentVol);
     mp3Player.play(1);
     randomSeed(analogRead(0));
