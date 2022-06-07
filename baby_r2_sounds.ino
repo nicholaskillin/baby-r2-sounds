@@ -23,10 +23,11 @@ int lastRandomSoundValue = 0;
 int lastRandomScreamsValue = 0;
 int lastLeiaValue = 0;
 int lastRandomMusicValue = 0;
+const int DFPLAYER_BUSY_PIN = 7;
 
 // Debug Variables (Set to true to turn on debug mode)
 // Set serial monitor to 115200
-bool debugDfMiniPlayer = true;
+bool debugDfMiniPlayer = false;
 bool debugTransmitter = false;
 
 IBusBM IBus;
@@ -38,6 +39,7 @@ void setup() {
   IBus.begin(Serial);
 
   if (debugDfMiniPlayer) {
+    pinMode(DFPLAYER_BUSY_PIN, INPUT);
     Serial.println(F("DFRobot DFPlayer Mini Demo"));
     Serial.println(F("Initializing DFPlayer ... (May take 3~5 seconds)"));
 
@@ -86,7 +88,7 @@ void loop() {
     }
 
     // Check to see if the MP3 is still playing
-    bool mp3Playing = mp3Player.readState() == 1;
+    bool mp3Playing = digitalRead(DFPLAYER_BUSY_PIN) == 0;
     if (debugDfMiniPlayer) {
       String mp3StateString = mp3Playing ? "Playing" : "Not Playing";
       Serial.println("MP3 Player State: " + mp3StateString);
