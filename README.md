@@ -84,14 +84,9 @@ For whatever reason I've found that your FlySky transmitter (controller) has to 
 
 ## Compatible Hardware
 
-I've had some people reach out with issues that were caused due to the devices they purchased.
-I will try to keep this project as flexible as possible, but for now know that some DFPlayers work
-and others don't. I will do my best to keep the list below updated as I hear back from others.
+### DFPlayerMini
 
-Verified Compatible DFPlayerMinis:
-
-- [HiLetgo] (https://www.amazon.com/gp/product/B01D1D0E7Q/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1)
-
-Verified Incompatible DFPlayerMinis:
-
-- [DFRobot] (https://www.dfrobot.com/product-1121.html?fbclid=IwAR33kexA3I6MpVHscI2PRaD_InpwsOrJ6F9iEBH7Y8vIuZ0lATHGkUS48Yo)
+| Brand                                   | Supported | Not Supported |
+| --------------------------------------- | --------- | ------------- |
+| [HiLetgo](https://tinyurl.com/y764yvr8) | X         |               |
+| [DFRobot](https://tinyurl.com/4naf9mhx) | X         |               |
