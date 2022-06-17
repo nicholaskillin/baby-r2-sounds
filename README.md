@@ -4,8 +4,8 @@ I have printed and assembled one of [Mr. Baddeley's](https://www.patreon.com/mrb
 
 Additional Hardware used:
 
-- [Ardunio Nano](https://store-usa.arduino.cc/products/arduino-nano?selectedStore=us)
-- [DF Mini Player](https://www.amazon.com/gp/product/B01D1D0E7Q/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1) | [Compatible Models](#compatible-hardware)
+- Ardunio Nano | [Compatible Models](#compatible-hardware)
+- DF Mini Player | [Compatible Models](#compatible-hardware)
 - SD Card
 - 1K Resistor
 
@@ -83,6 +83,12 @@ For whatever reason I've found that your FlySky transmitter (controller) has to 
 ![Baby R2 Sounds Controls](https://user-images.githubusercontent.com/39142975/149840752-1e6b11ea-07b3-4312-a17c-db5ac8ca2787.png)
 
 ## Compatible Hardware
+
+### Nano
+
+| Brand                                      | Supported | Not Supported |
+| ------------------------------------------ | --------- | ------------- |
+| [MakerFocus](https://tinyurl.com/2mt5uw78) | X         |               |
 
 ### DFPlayerMini
 
