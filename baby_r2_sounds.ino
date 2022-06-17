@@ -37,6 +37,7 @@ DFRobotDFPlayerMini mp3Player;
 void setup() {
   softwareSerial.begin(9600);
   IBus.begin(Serial);
+  while(!Serial);
 
   if (debugDfMiniPlayer) {
     pinMode(DFPLAYER_BUSY_PIN, INPUT);
