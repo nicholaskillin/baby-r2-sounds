@@ -35,6 +35,7 @@ AltSoftSerial softwareSerial; // Pins (TX: 9, RX: 8)
 DFRobotDFPlayerMini mp3Player;
 
 void setup() {
+  delay(1000);
   softwareSerial.begin(9600);
   IBus.begin(Serial);
   while(!Serial);
