@@ -27,6 +27,7 @@ const int DFPLAYER_BUSY_PIN = 7;
 
 // Debug Variables (Set to true to turn on debug mode)
 bool debugDfMiniPlayer = false; // Set serial monitor to 115200
+String lastmp3StateString;
 bool debugTransmitter = false; // Set serial monitor to 9600
 
 IBusBM IBus;
@@ -91,7 +92,10 @@ void loop() {
     bool mp3Playing = digitalRead(DFPLAYER_BUSY_PIN) == 0;
     if (debugDfMiniPlayer) {
       String mp3StateString = mp3Playing ? "Playing" : "Not Playing";
-      Serial.println("MP3 Player State: " + mp3StateString);
+      if (lastmp3StateString != mp3StateString) {
+        Serial.println("MP3 Player State: " + mp3StateString);
+      }
+      lastmp3StateString = mp3StateString;
     }
     
     if (!mp3Playing) {
