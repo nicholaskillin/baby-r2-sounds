@@ -37,9 +37,9 @@ DFRobotDFPlayerMini mp3Player;
 void setup() {
   softwareSerial.begin(9600);
   IBus.begin(Serial);
+  pinMode(DFPLAYER_BUSY_PIN, INPUT);
 
   if (debugDfMiniPlayer) {
-    pinMode(DFPLAYER_BUSY_PIN, INPUT);
     Serial.println(F("DFRobot DFPlayer Mini Demo"));
     Serial.println(F("Initializing DFPlayer ... (May take 3~5 seconds)"));
 
