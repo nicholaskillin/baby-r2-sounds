@@ -28,7 +28,7 @@ const int DFPLAYER_BUSY_PIN = 7;
 // Debug Variables (Set to true to turn on debug mode)
 bool debugDfMiniPlayer = false; // Set serial monitor to 115200
 String lastmp3StateString;
-bool debugTransmitter = false; // Set serial monitor to 9600
+bool debugTransmitter = false; // Set serial monitor to 115200
 
 IBusBM IBus;
 AltSoftSerial softwareSerial; // Pins (TX: 9, RX: 8)

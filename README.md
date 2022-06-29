@@ -60,8 +60,8 @@ I found [this video](https://www.youtube.com/watch?v=ZwM_AoKfoj0) helpful in get
 > If things aren't working one thing to check is if your receiver is sending the correct values to the nano. To do this you can edit the code to turn debugTransmitter on.
 >
 > > bool debugTransmitter = true; // Set serial monitor to 115200
-> > After you do make this change:
->
+> 
+> After you make this change:
 > 1. Upload those changes to your nano
 > 2. Open the serial monitor in the Arduino software
 > 3. Set the serial monitor rate to 115200
