@@ -49,6 +49,7 @@ void setup() {
       while(true);
     }
     Serial.println(F("DFPlayer Mini online."));
+    mp3Player.volume(currentVol);
   } else if (debugTransmitter) {
     Serial.println("Started iBus");
   } else {
